@@ -5,9 +5,14 @@ One command instead of ten. No API key: the model is a scripted stand-in that
 emits a fixed sequence of tool calls, so every difference below is the harness
 and nothing else.
 
-Run:  python3 run_all.py
+Run:  python3 run_all.py            all five layers
+      python3 run_all.py --layer 3  just layer 3, guard off then on
+      python3 run_all.py --list     what the five layers are
+
+Isolating one layer is the point of the pairs: read the two scripts side by side
+and the only difference is where the rule lives.
 """
-import subprocess, sys, pathlib
+import argparse, subprocess, sys, pathlib
 
 ROOT = pathlib.Path(__file__).parent
 LAYERS = [
@@ -33,7 +38,22 @@ def last_lines(script, n=2):
 
 
 def main():
-    for (title, question), pair in zip(LAYERS, NAMES):
+    p = argparse.ArgumentParser(description="Run the harness layers, guard off then on.")
+    p.add_argument("--layer", type=int, choices=range(1, 6), metavar="1-5",
+                   help="run one layer instead of all five")
+    p.add_argument("--list", action="store_true", help="list the layers and exit")
+    a = p.parse_args()
+
+    if a.list:
+        for i, (title, question) in enumerate(LAYERS, 1):
+            print(f"  {i}  {title.split('  ', 1)[1]:<22} {question}")
+        return
+
+    pairs = list(zip(LAYERS, NAMES))
+    if a.layer:
+        pairs = [pairs[a.layer - 1]]
+
+    for (title, question), pair in pairs:
         bad, good = pair.split()
         print(f"\n\033[1mLayer {title}\033[0m  -  {question}")
         print("  guard OFF")
@@ -43,7 +63,10 @@ def main():
         for l in last_lines(f"layers/{good}.py"):
             print(f"    {l}")
     print("\nSame agent, same script, same system prompt, both times.")
-    print("Run python3 test_harness.py to assert every one of those differences.")
+    if a.layer:
+        print(f"Run without --layer for the other four, or read layers/ and failures/ side by side.")
+    else:
+        print("Run python3 test_harness.py to assert every one of those differences.")
 
 
 if __name__ == "__main__":

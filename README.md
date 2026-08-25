@@ -39,8 +39,10 @@ python3 layers/01_execution_boundary.py        # same agent, nothing deleted
 ## Run it
 
 ```bash
-python3 run_all.py        # all five layers, guard off then on, side by side
-python3 test_harness.py   # asserts every difference above, 10 checks
+python3 run_all.py            # all five layers, guard off then on, side by side
+python3 run_all.py --layer 3  # one layer on its own
+python3 run_all.py --list     # what the five layers are
+python3 test_harness.py       # asserts every difference above
 ```
 
 No dependencies and no API key. `shared/fake_agent.py` replaces the model with a
