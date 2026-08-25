@@ -3,7 +3,10 @@
 [![tests](https://github.com/paoloap-py/agent-harness/actions/workflows/test.yml/badge.svg)](https://github.com/paoloap-py/agent-harness/actions/workflows/test.yml)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 
-The companion code for **[The Complete Guide to Agent Harnesses (With Code)](https://medium.com/data-science-collective)**.
+Companion to [The Complete Guide to Agent Harnesses (With Code)](https://medium.com/data-science-collective/the-complete-guide-to-agent-harnesses-with-code-6fa11cecd004).
+
+> Every demo here runs on stock Python with nothing installed. The model is a scripted
+> stand-in, so the five differences are reproducible rather than sampled.
 
 A coding agent loop is six lines, twenty with error handling. Everything else is the harness: the code that decides what the model is allowed to do, what it can
 reach, what it remembers, who checks its work, and what it gets to see.
@@ -16,8 +19,8 @@ Every demo runs with **no API key**. The model is replaced by a scripted stand-i
 because a difference you can run beats a claim you have to trust.
 
 ```bash
-git clone https://github.com/paoloap-py/agent-harness-guide
-cd agent-harness-guide
+git clone https://github.com/paoloap-py/agent-harness
+cd agent-harness
 
 python3 failures/01_no_execution_boundary.py   # guard off: deletes the client file
 python3 layers/01_execution_boundary.py        # same agent, nothing deleted
