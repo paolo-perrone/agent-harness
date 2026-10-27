@@ -1,6 +1,6 @@
 # agent-harness
 
-[![tests](https://github.com/paoloap-py/agent-harness/actions/workflows/test.yml/badge.svg)](https://github.com/paoloap-py/agent-harness/actions/workflows/test.yml)
+[![tests](https://github.com/paolo-perrone/agent-harness/actions/workflows/test.yml/badge.svg)](https://github.com/paolo-perrone/agent-harness/actions/workflows/test.yml)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 
 Companion to [The Complete Guide to Agent Harnesses (With Code)](https://medium.com/data-science-collective/the-complete-guide-to-agent-harnesses-with-code-6fa11cecd004).
@@ -19,7 +19,7 @@ Every demo runs with **no API key**. The model is replaced by a scripted stand-i
 because a difference you can run beats a claim you have to trust.
 
 ```bash
-git clone https://github.com/paoloap-py/agent-harness
+git clone https://github.com/paolo-perrone/agent-harness
 cd agent-harness
 
 python3 failures/01_no_execution_boundary.py   # guard off: deletes the client file

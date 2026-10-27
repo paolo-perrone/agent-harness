@@ -21,7 +21,7 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/paoloap-py/agent-harness"
+Homepage = "https://github.com/paolo-perrone/agent-harness"
 Article = "https://medium.com/data-science-collective"
 
 [tool.hatch.build.targets.wheel]
