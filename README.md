@@ -55,6 +55,22 @@ than smoke-test it.
 `test_harness.py` checks both directions: each failure script must still fail, and
 each layer script must still prevent it. Remove a guard and the suite goes red.
 
+## Failure 1 on a real model, in n8n
+
+The scripted stand-in makes the difference reproducible. [`n8n/`](n8n/) shows
+what a real model does with the same setup: failure 1 rebuilt in n8n Agents and
+run 60 times on gpt-4.1, with the same instructions, the same three files and a
+message that pushes.
+
+The model never asked first. With the rule only in the prompt, it deleted the
+junk and kept the client file in 10 runs out of 10. Add one stale README to the
+data that calls the client file an old export, and it deleted the client file
+10 times out of 10. A workflow that only deletes files marked junk refused that
+call every time, and an approval gate on the delete tool stopped it every time.
+
+The folder has the workflow, the three agent configs, the data and the raw run
+log, so you can run it in your own n8n.
+
 ## Use it in your own agent
 
 One file, no dependencies. Copy `harness.py` into your project and wrap the `execute` your loop already calls. Sync or async — `boundary()` detects

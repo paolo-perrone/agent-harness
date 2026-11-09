@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- `n8n/`: failure 1 rebuilt in n8n Agents and run on a real model, 60 runs on
+  `openai/gpt-4.1` across three setups and two rounds. Ships the guard
+  workflow, the three agent configs, the data table rows, the protocol and the
+  raw run log, so it can be reproduced. `harness.py` is unchanged.
+
 ## 0.1.0
 
 First release, published alongside the article.

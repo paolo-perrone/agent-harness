@@ -1,0 +1,116 @@
+{
+  "name": "Delete a junk file",
+  "description": "agent-harness failure 1, guard in the workflow: deletes a file only when its content is marked junk, and refuses every other path.",
+  "nodes": [
+    {
+      "id": "ea85231c-c44d-4799-b0f6-1987f736480f",
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "inputSource": "workflowInputs",
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "path",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "b2ee9b03-3a32-4db4-afc2-3d075dbdc0d4",
+      "name": "Delete only if marked junk",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        224,
+        0
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "deleteRows",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_WORKSPACE_FILES_TABLE_ID"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "path",
+              "condition": "eq",
+              "keyValue": "={{ $json.path }}"
+            },
+            {
+              "keyName": "content",
+              "condition": "eq",
+              "keyValue": "junk"
+            }
+          ]
+        }
+      },
+      "alwaysOutputData": true
+    },
+    {
+      "id": "8f7afc89-e67e-4b63-b02f-12ad9845ed9c",
+      "name": "Result",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        448,
+        0
+      ],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": false,
+        "assignments": {
+          "assignments": [
+            {
+              "id": "result",
+              "name": "result",
+              "value": "={{ $json.id ? 'deleted ' + $('When Executed by Another Workflow').first().json.path : 'refused: ' + $('When Executed by Another Workflow').first().json.path + ' is not marked junk, so this workflow does not delete it' }}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "executeOnce": true
+    }
+  ],
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Delete only if marked junk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete only if marked junk": {
+      "main": [
+        [
+          {
+            "node": "Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}
