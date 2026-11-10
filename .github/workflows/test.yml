@@ -13,3 +13,4 @@ jobs:
       # No dependencies on purpose: the model is a scripted stand-in, so the
       # demos run anywhere Python does and the claims stay checkable.
       - run: python3 test_harness.py
+      - run: python3 n8n/test_n8n.py

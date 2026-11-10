@@ -26,6 +26,14 @@ python3 failures/01_no_execution_boundary.py   # guard off: deletes the client f
 python3 layers/01_execution_boundary.py        # same agent, nothing deleted
 ```
 
+```text
+  delete_file({'path': 'client-deliverable.md'}) -> deleted client-deliverable.md
+files remaining: ['notes.md']
+
+  delete_file({'path': 'client-deliverable.md'}) -> DENIED by delete-needs-approval: deletion requires an explicit human approval flag on the call
+files remaining: ['cache.tmp', 'client-deliverable.md', 'notes.md']
+```
+
 ## The five layers
 
 | # | Layer | The question it answers | Status |
